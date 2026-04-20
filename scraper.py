@@ -1079,7 +1079,7 @@ def fetch_inner_content_clean(url: str, site_type: str, category: str = 'latest_
         content = None
         if site_type == 'SR':
             content = soup.find('div', id='post') or soup.find('div', class_=re.compile(r'postab|post-content|post_detail'))
-        elif site_type in ['FJA', 'SE']:
+        elif site_type in ['FJA', 'SE', 'SU']:
             content = soup.find('div', class_=re.compile(r'entry-content|post-content|single-post')) or soup.find('article')
 
         if not content:

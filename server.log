@@ -302,3 +302,16 @@
 127.0.0.1 - - [20/Apr/2026 12:38:57] "GET /api/scrape-status HTTP/1.1" 200 -
 127.0.0.1 - - [20/Apr/2026 12:39:02] "GET /api/scrape-status HTTP/1.1" 200 -
 127.0.0.1 - - [20/Apr/2026 12:39:07] "GET /api/scrape-status HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 21:13:51] "GET /index.html?t=123 HTTP/1.1" 304 -
+127.0.0.1 - - [20/Apr/2026 21:13:51] "GET /stateMeta.js HTTP/1.1" 304 -
+127.0.0.1 - - [20/Apr/2026 21:13:51] "GET /renderData.js HTTP/1.1" 304 -
+127.0.0.1 - - [20/Apr/2026 21:13:51] "GET /manifest.json HTTP/1.1" 304 -
+127.0.0.1 - - [20/Apr/2026 21:13:51] "GET /state_portals.json HTTP/1.1" 304 -
+127.0.0.1 - - [20/Apr/2026 21:13:51] "GET /data.json HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 21:13:51] "GET /api/manual-data HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 21:13:51] "GET /icon-192.png HTTP/1.1" 304 -
+127.0.0.1 - - [20/Apr/2026 21:13:53] "GET /sw.js HTTP/1.1" 304 -
+127.0.0.1 - - [20/Apr/2026 21:13:58] "GET /latestjobs.html HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 21:13:59] "GET /data.json HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 21:13:59] "GET /api/manual-data HTTP/1.1" 200 -
+127.0.0.1 - - [20/Apr/2026 21:14:00] "GET /sw.js HTTP/1.1" 304 -
