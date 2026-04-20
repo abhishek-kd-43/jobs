@@ -1,0 +1,30 @@
+{
+  "status": "success",
+  "started_at": "2026-04-20T07:54:17+00:00",
+  "finished_at": "2026-04-20T08:01:03+00:00",
+  "duration_seconds": 406.56,
+  "counts": {
+    "results": 64,
+    "admit_cards": 63,
+    "latest_jobs": 118,
+    "answer_keys": 51,
+    "private_jobs": 24,
+    "remote_jobs": 24
+  },
+  "sources": [
+    "sarkariresult",
+    "freejobalert",
+    "sarkariexam",
+    "sarkariujala",
+    "official_portals",
+    "internshala",
+    "freshersworld",
+    "naukri",
+    "indeed",
+    "remoteok",
+    "weworkremotely",
+    "remotive",
+    "flexjobs"
+  ],
+  "error": null
+}

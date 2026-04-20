@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Private Jobs - OnlyJobs</title>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#1D4ED8"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--page-accent:#1D4ED8;--page-accent-soft:#EFF6FF;--dk:#0F172A;--tx:#334155;--mu:#64748B;--bd:#E2E8F0;--bg:#F8FAFC;--card:#FFFFFF;}
+body{font-family:'Figtree',sans-serif;background:linear-gradient(180deg,#F8FAFC 0%,#EEF4FF 100%);color:var(--tx);font-size:15px;line-height:1.6;}
+header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);}
+.nav{max-width:1200px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--dk);}
+.logo-ic{width:36px;height:36px;border-radius:10px;background:var(--page-accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;}
+.logo-tx{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;}
+.logo-tx span{color:var(--page-accent);}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap;}
+.nav-links a{text-decoration:none;color:var(--mu);font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px;}
+.nav-links a.active,.nav-links a:hover{background:var(--page-accent-soft);color:var(--page-accent);}
+.page{max-width:1200px;margin:0 auto;padding:28px 20px 48px;}
+.bc{font-size:13px;color:var(--mu);margin-bottom:16px;}
+.bc a{color:var(--page-accent);text-decoration:none;}
+.hero{background:radial-gradient(circle at top right,rgba(29,78,216,.18),transparent 38%),linear-gradient(135deg,#FFFFFF 0%,#EEF4FF 100%);border:1px solid var(--bd);border-radius:24px;padding:28px;box-shadow:0 20px 60px rgba(15,23,42,.08);margin-bottom:22px;}
+.hero-badge{display:inline-block;background:var(--page-accent-soft);color:var(--page-accent);padding:6px 12px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:12px;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,42px);line-height:1.05;color:var(--dk);margin-bottom:10px;}
+.hero p{max-width:760px;color:var(--mu);}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.search-box{flex:1;min-width:260px;}
+.search-box input{width:100%;padding:13px 16px;border-radius:14px;border:1px solid var(--bd);background:#fff;font-size:14px;font-family:'Figtree',sans-serif;outline:none;}
+.search-box input:focus{border-color:var(--page-accent);box-shadow:0 0 0 4px rgba(29,78,216,.08);}
+.job-count{font-size:13px;font-weight:700;color:var(--mu);}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.chip{border:none;background:#fff;color:var(--mu);border:1px solid var(--bd);padding:8px 14px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;}
+.chip.on,.chip:hover{background:var(--page-accent-soft);border-color:rgba(0,0,0,0);color:var(--page-accent);}
+.job-list{display:flex;flex-direction:column;gap:14px;}
+.job-card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;box-shadow:0 14px 40px rgba(15,23,42,.05);}
+.job-main{flex:1;min-width:0;}
+.job-title a{text-decoration:none;color:var(--dk);font-family:'Syne',sans-serif;font-size:20px;font-weight:800;line-height:1.25;}
+.job-title a:hover{color:var(--page-accent);}
+.job-meta{margin-top:6px;color:var(--mu);font-size:14px;}
+.job-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.tag{display:inline-flex;align-items:center;background:var(--page-accent-soft);color:var(--page-accent);padding:6px 10px;border-radius:999px;font-size:11.5px;font-weight:800;}
+.job-note{margin-top:12px;font-size:13px;color:var(--mu);}
+.job-actions{display:flex;gap:10px;flex-shrink:0;}
+.btn-primary,.btn-secondary{text-decoration:none;border-radius:12px;padding:11px 14px;font-size:13px;font-weight:800;white-space:nowrap;}
+.btn-primary{background:var(--page-accent);color:#fff;}
+.btn-secondary{background:#fff;color:var(--dk);border:1px solid var(--bd);}
+.empty-state{background:#fff;border:1px solid var(--bd);border-radius:20px;padding:32px;text-align:center;color:var(--mu);}
+footer{max-width:1200px;margin:0 auto;padding:0 20px 32px;color:var(--mu);font-size:12px;}
+@media(max-width:860px){.job-card{flex-direction:column;}.job-actions{width:100%;}.btn-primary,.btn-secondary{flex:1;text-align:center;}.nav{height:auto;padding:14px 20px;align-items:flex-start;flex-direction:column;}}
+</style>
+</head>
+<body data-page-type="private_jobs">
+<header>
+  <div class="nav">
+    <a href="index.html" class="logo">
+      <div class="logo-ic">OJ</div>
+      <div class="logo-tx">Only<span>Jobs</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="latestjobs.html">Government Jobs</a>
+      <a href="privatejobs.html" class="active">Private Jobs</a>
+      <a href="remotejobs.html">Remote Jobs</a>
+      <a href="results.html">Results</a>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="bc"><a href="index.html">Home</a> &rsaquo; <span id="bcLabel">Private Jobs</span></div>
+
+  <section class="hero">
+    <div class="hero-badge" id="pageBadge">Live company hiring</div>
+    <h1 id="pageTitle">Private Jobs 2026</h1>
+    <p id="pageSubtitle">Fresh private-sector openings collected from major career portals with salary, experience and location snippets.</p>
+  </section>
+
+  <div class="toolbar">
+    <div class="search-box"><input id="searchInput" type="text" placeholder="Search private jobs..."/></div>
+    <div class="job-count" id="jobCount">0 jobs</div>
+  </div>
+
+  <div class="chips" id="sourceFilters"></div>
+  <div class="job-list" id="jobList"></div>
+</div>
+
+<footer>OnlyJobs aggregates listings for convenience. Verify the latest details on the original job page before applying.</footer>
+<script src="careerData.js"></script>
+</body>
+</html>
