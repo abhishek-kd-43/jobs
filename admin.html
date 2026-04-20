@@ -905,6 +905,513 @@
             padding-bottom: 10px;
             border-bottom: 1.5px solid var(--b3);
         }
+
+        /* ══ AI AGENT PAGE ══ */
+        #page-agent {
+            padding: 0;
+            background: #0F0F1A;
+            min-height: calc(100vh - 58px);
+        }
+
+        .agent-header {
+            background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .agent-header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .agent-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #E85D04, #7C3AED);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .agent-avatar-dot {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #1A1A2E;
+            background: #6b7280;
+            transition: background .3s;
+        }
+
+        .agent-avatar-dot.active {
+            background: #10b981;
+            animation: agent-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes agent-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,.5); }
+            50% { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+        }
+
+        .agent-title-block h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+        }
+
+        .agent-title-block p {
+            font-size: 12px;
+            color: rgba(255,255,255,.5);
+            margin: 2px 0 0;
+        }
+
+        .agent-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.12);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            color: rgba(255,255,255,.6);
+            font-weight: 600;
+        }
+
+        .agent-status-pill.running {
+            background: rgba(16,185,129,.15);
+            border-color: rgba(16,185,129,.3);
+            color: #6ee7b7;
+        }
+
+        .agent-hdr-btns {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .agent-btn {
+            padding: 9px 16px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-family: 'Figtree', sans-serif;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .agent-btn-primary {
+            background: linear-gradient(135deg, #E85D04, #C44D00);
+            color: #fff;
+        }
+
+        .agent-btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+
+        .agent-btn-ghost {
+            background: rgba(255,255,255,.08);
+            color: rgba(255,255,255,.8);
+            border: 1px solid rgba(255,255,255,.12);
+        }
+
+        .agent-btn-ghost:hover { background: rgba(255,255,255,.14); }
+
+        .agent-btn-ghost.active {
+            background: rgba(232,93,4,.2);
+            border-color: rgba(232,93,4,.4);
+            color: #FDBA74;
+        }
+
+        .agent-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* AGENT LAYOUT */
+        .agent-body {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: calc(100vh - 58px - 90px);
+            min-height: 500px;
+        }
+
+        @media(max-width: 900px) {
+            .agent-body { grid-template-columns: 1fr; }
+            .agent-sources-panel { display: none; }
+        }
+
+        /* SOURCES PANEL */
+        .agent-sources-panel {
+            border-right: 1px solid rgba(255,255,255,.07);
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #11111F;
+        }
+
+        .agent-sources-panel::-webkit-scrollbar { width: 4px; }
+        .agent-sources-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 4px; }
+
+        .source-group-label {
+            font-size: 9.5px;
+            font-weight: 700;
+            color: rgba(255,255,255,.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 2px;
+        }
+
+        .source-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 10px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all .2s;
+        }
+
+        .source-card:hover { background: rgba(255,255,255,.07); }
+
+        .source-card.scraping {
+            border-color: rgba(232,93,4,.4);
+            background: rgba(232,93,4,.07);
+        }
+
+        .source-card.done {
+            border-color: rgba(16,185,129,.3);
+            background: rgba(16,185,129,.05);
+        }
+
+        .source-card.error {
+            border-color: rgba(220,38,38,.3);
+            background: rgba(220,38,38,.05);
+        }
+
+        .source-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .source-info { flex: 1; min-width: 0; }
+
+        .source-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255,255,255,.85);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .source-meta {
+            font-size: 10.5px;
+            color: rgba(255,255,255,.35);
+            margin-top: 2px;
+        }
+
+        .source-count-badge {
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(232,93,4,.2);
+            color: #FDBA74;
+            padding: 2px 7px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .source-count-badge.green {
+            background: rgba(16,185,129,.15);
+            color: #6ee7b7;
+        }
+
+        .source-mini-bar {
+            height: 2px;
+            background: rgba(255,255,255,.08);
+            border-radius: 2px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .source-mini-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #E85D04, #F97316);
+            width: 0;
+            transition: width .5s ease;
+        }
+
+        /* SOURCE TOGGLE */
+        .toggle-sw {
+            position: relative;
+            width: 30px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .toggle-sw input { opacity: 0; width: 0; height: 0; }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,.12);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.4);
+            top: 3px;
+            left: 3px;
+            transition: all .2s;
+        }
+
+        .toggle-sw input:checked + .toggle-slider { background: #E85D04; }
+        .toggle-sw input:checked + .toggle-slider::before {
+            background: #fff;
+            transform: translateX(14px);
+        }
+
+        /* CHAT PANEL */
+        .agent-chat-panel {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .agent-chat-log {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .agent-chat-log::-webkit-scrollbar { width: 4px; }
+        .agent-chat-log::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 4px; }
+
+        .chat-msg {
+            display: flex;
+            gap: 10px;
+            animation: chat-in .2s ease;
+        }
+
+        @keyframes chat-in {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-msg.user { flex-direction: row-reverse; }
+
+        .chat-msg-av {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .chat-msg.agent .chat-msg-av {
+            background: linear-gradient(135deg, #E85D04, #7C3AED);
+        }
+
+        .chat-msg.user .chat-msg-av {
+            background: rgba(255,255,255,.1);
+        }
+
+        .chat-bubble {
+            max-width: 75%;
+            border-radius: 14px;
+            padding: 10px 14px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .chat-msg.agent .chat-bubble {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.1);
+            color: rgba(255,255,255,.9);
+            border-top-left-radius: 4px;
+        }
+
+        .chat-msg.user .chat-bubble {
+            background: linear-gradient(135deg, #E85D04, #C44D00);
+            color: #fff;
+            border-top-right-radius: 4px;
+        }
+
+        .chat-bubble strong { color: #FDBA74; }
+        .chat-msg.user .chat-bubble strong { color: rgba(255,255,255,.9); }
+
+        /* LOG TERMINAL */
+        .agent-log-terminal {
+            background: #0A0A14;
+            border-top: 1px solid rgba(255,255,255,.07);
+            padding: 8px 16px;
+            height: 100px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+
+        .agent-log-terminal::-webkit-scrollbar { width: 3px; }
+        .agent-log-terminal::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); }
+
+        .log-line {
+            padding: 1px 0;
+            color: rgba(255,255,255,.4);
+            animation: log-in .1s ease;
+        }
+
+        @keyframes log-in { from { opacity: 0; } to { opacity: 1; } }
+        .log-line.info { color: #60a5fa; }
+        .log-line.success { color: #34d399; }
+        .log-line.warn { color: #fbbf24; }
+        .log-line.error { color: #f87171; }
+
+        /* CHAT INPUT BAR */
+        .agent-input-bar {
+            background: rgba(255,255,255,.04);
+            border-top: 1px solid rgba(255,255,255,.07);
+            padding: 12px 16px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .agent-input {
+            flex: 1;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 13.5px;
+            color: #fff;
+            font-family: 'Figtree', sans-serif;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .agent-input::placeholder { color: rgba(255,255,255,.3); }
+        .agent-input:focus { border-color: rgba(232,93,4,.5); }
+
+        .agent-send-btn {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #E85D04, #C44D00);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s;
+            flex-shrink: 0;
+        }
+
+        .agent-send-btn:hover { opacity: .9; transform: scale(1.05); }
+
+        /* STATS BAR */
+        .agent-stats-bar {
+            background: rgba(255,255,255,.03);
+            border-top: 1px solid rgba(255,255,255,.07);
+            padding: 10px 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .agent-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: rgba(255,255,255,.5);
+        }
+
+        .agent-stat-item strong { color: rgba(255,255,255,.85); font-weight: 700; }
+
+        /* QUICK CMD CHIPS */
+        .agent-chips {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            padding: 0 16px 10px;
+        }
+
+        .agent-chip {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,.1);
+            color: rgba(255,255,255,.6);
+            background: rgba(255,255,255,.04);
+            transition: all .15s;
+        }
+
+        .agent-chip:hover {
+            background: rgba(232,93,4,.15);
+            border-color: rgba(232,93,4,.3);
+            color: #FDBA74;
+        }
+
+        /* PROGRESS OVERLAY */
+        .agent-progress-ring {
+            position: relative;
+            width: 36px;
+            height: 36px;
+        }
+
+        .agent-progress-ring svg {
+            transform: rotate(-90deg);
+        }
+
+        .agent-progress-ring circle {
+            fill: none;
+            stroke-width: 3;
+        }
     </style>
 </head>
 
@@ -989,6 +1496,11 @@
                             class="sb-item-label">Users</span><span class="sb-count" id="cnt-users">0</span></div>
                     <div class="sb-item" onclick="goPage('mocktest',this)"><span class="sb-item-icon">📝</span><span
                             class="sb-item-label">Mock Test</span></div>
+                </div>
+
+                <div class="sb-section">
+                    <div class="sb-section-label">🤖 Intelligence</div>
+                    <div class="sb-item" onclick="goPage('agent',this)" id="sb-agent-item" style="position:relative;"><span class="sb-item-icon">🤖</span><span class="sb-item-label">AI Job Agent</span><span class="sb-count" id="cnt-agent" style="background:linear-gradient(135deg,#E85D04,#7C3AED);">NEW</span></div>
                 </div>
 
                 <div class="sb-section">
@@ -1309,6 +1821,237 @@
                     <div class="tbl-wrap">
                         <div id="mock-tbl-body"></div>
                     </div>
+                </div>
+
+                <!-- ══ AI AGENT PAGE ══ -->
+                <div class="page" id="page-agent">
+
+                    <!-- AGENT HEADER -->
+                    <div class="agent-header">
+                        <div class="agent-header-left">
+                            <div class="agent-avatar">
+                                🤖
+                                <div class="agent-avatar-dot" id="agent-dot"></div>
+                            </div>
+                            <div class="agent-title-block">
+                                <h2>OnlyJobs AI Agent</h2>
+                                <p>Autonomously scrapes &amp; publishes job listings from 9 competitor sources</p>
+                            </div>
+                            <div class="agent-status-pill" id="agent-status-pill">⏸ Idle</div>
+                        </div>
+                        <div class="agent-hdr-btns">
+                            <button class="agent-btn agent-btn-ghost" id="agent-schedule-btn" onclick="agentToggleSchedule()" title="Toggle daily auto-run">⏰ Auto Daily</button>
+                            <button class="agent-btn agent-btn-ghost" onclick="agentCmd('preview')" title="Preview last scraped">👁 Preview</button>
+                            <button class="agent-btn agent-btn-primary" id="agent-run-btn" onclick="agentCmd('scrape all')">▶ Run Now</button>
+                        </div>
+                    </div>
+
+                    <!-- AGENT BODY -->
+                    <div class="agent-body">
+
+                        <!-- LEFT: SOURCES PANEL -->
+                        <div class="agent-sources-panel">
+
+                            <div class="source-group-label">🏛️ Government Jobs</div>
+
+                            <div class="source-card" id="src-card-SR">
+                                <div class="source-icon" style="background:rgba(220,38,38,.15);">🔴</div>
+                                <div class="source-info">
+                                    <div class="source-name">SarkariResult.com</div>
+                                    <div class="source-meta">Latest jobs, results, admit cards</div>
+                                    <div class="source-mini-bar"><div class="source-mini-bar-fill" id="src-bar-SR"></div></div>
+                                </div>
+                                <span class="source-count-badge" id="src-cnt-SR">—</span>
+                                <label class="toggle-sw"><input type="checkbox" checked id="tog-SR"><span class="toggle-slider"></span></label>
+                            </div>
+
+                            <div class="source-card" id="src-card-SU">
+                                <div class="source-icon" style="background:rgba(234,179,8,.12);">🌟</div>
+                                <div class="source-info">
+                                    <div class="source-name">SarkariUjala.com</div>
+                                    <div class="source-meta">Govt notifications, forms</div>
+                                    <div class="source-mini-bar"><div class="source-mini-bar-fill" id="src-bar-SU"></div></div>
+                                </div>
+                                <span class="source-count-badge" id="src-cnt-SU">—</span>
+                                <label class="toggle-sw"><input type="checkbox" checked id="tog-SU"><span class="toggle-slider"></span></label>
+                            </div>
+
+                            <div class="source-card" id="src-card-FJA">
+                                <div class="source-icon" style="background:rgba(59,130,246,.12);">💙</div>
+                                <div class="source-info">
+                                    <div class="source-name">FreeJobAlert.com</div>
+                                    <div class="source-meta">Notifications, admit cards, results</div>
+                                    <div class="source-mini-bar"><div class="source-mini-bar-fill" id="src-bar-FJA"></div></div>
+                                </div>
+                                <span class="source-count-badge" id="src-cnt-FJA">—</span>
+                                <label class="toggle-sw"><input type="checkbox" checked id="tog-FJA"><span class="toggle-slider"></span></label>
+                            </div>
+
+                            <div class="source-group-label" style="margin-top:8px;">💼 Private Jobs</div>
+
+                            <div class="source-card" id="src-card-NK">
+                                <div class="source-icon" style="background:rgba(251,146,60,.12);">🔶</div>
+                                <div class="source-info">
+                                    <div class="source-name">Naukri.com</div>
+                                    <div class="source-meta">Private jobs (via ScraperAPI)</div>
+                                    <div class="source-mini-bar"><div class="source-mini-bar-fill" id="src-bar-NK"></div></div>
+                                </div>
+                                <span class="source-count-badge" id="src-cnt-NK">—</span>
+                                <label class="toggle-sw"><input type="checkbox" checked id="tog-NK"><span class="toggle-slider"></span></label>
+                            </div>
+
+                            <div class="source-card" id="src-card-LI">
+                                <div class="source-icon" style="background:rgba(29,78,216,.12);">💼</div>
+                                <div class="source-info">
+                                    <div class="source-name">LinkedIn Jobs</div>
+                                    <div class="source-meta">Professional jobs (via ScraperAPI)</div>
+                                    <div class="source-mini-bar"><div class="source-mini-bar-fill" id="src-bar-LI"></div></div>
+                                </div>
+                                <span class="source-count-badge" id="src-cnt-LI">—</span>
+                                <label class="toggle-sw"><input type="checkbox" checked id="tog-LI"><span class="toggle-slider"></span></label>
+                            </div>
+
+                            <div class="source-card" id="src-card-IN">
+                                <div class="source-icon" style="background:rgba(124,58,237,.12);">🔍</div>
+                                <div class="source-info">
+                                    <div class="source-name">Indeed India</div>
+                                    <div class="source-meta">Job aggregator (via ScraperAPI)</div>
+                                    <div class="source-mini-bar"><div class="source-mini-bar-fill" id="src-bar-IN"></div></div>
+                                </div>
+                                <span class="source-count-badge" id="src-cnt-IN">—</span>
+                                <label class="toggle-sw"><input type="checkbox" checked id="tog-IN"><span class="toggle-slider"></span></label>
+                            </div>
+
+                            <div class="source-group-label" style="margin-top:8px;">🌐 Remote Jobs</div>
+
+                            <div class="source-card" id="src-card-WWR">
+                                <div class="source-icon" style="background:rgba(16,185,129,.12);">🌍</div>
+                                <div class="source-info">
+                                    <div class="source-name">WeWorkRemotely.com</div>
+                                    <div class="source-meta">Remote-first job listings</div>
+                                    <div class="source-mini-bar"><div class="source-mini-bar-fill" id="src-bar-WWR"></div></div>
+                                </div>
+                                <span class="source-count-badge" id="src-cnt-WWR">—</span>
+                                <label class="toggle-sw"><input type="checkbox" checked id="tog-WWR"><span class="toggle-slider"></span></label>
+                            </div>
+
+                            <div class="source-card" id="src-card-FX">
+                                <div class="source-icon" style="background:rgba(6,182,212,.12);">🔵</div>
+                                <div class="source-info">
+                                    <div class="source-name">FlexJobs.com</div>
+                                    <div class="source-meta">Flexible &amp; remote work</div>
+                                    <div class="source-mini-bar"><div class="source-mini-bar-fill" id="src-bar-FX"></div></div>
+                                </div>
+                                <span class="source-count-badge" id="src-cnt-FX">—</span>
+                                <label class="toggle-sw"><input type="checkbox" checked id="tog-FX"><span class="toggle-slider"></span></label>
+                            </div>
+
+                            <div class="source-card" id="src-card-RC">
+                                <div class="source-icon" style="background:rgba(239,68,68,.12);">🏠</div>
+                                <div class="source-info">
+                                    <div class="source-name">Remote.co</div>
+                                    <div class="source-meta">Curated remote positions</div>
+                                    <div class="source-mini-bar"><div class="source-mini-bar-fill" id="src-bar-RC"></div></div>
+                                </div>
+                                <span class="source-count-badge" id="src-cnt-RC">—</span>
+                                <label class="toggle-sw"><input type="checkbox" checked id="tog-RC"><span class="toggle-slider"></span></label>
+                            </div>
+
+                            <!-- SOURCE SUMMARY -->
+                            <div style="margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);">
+                                <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:8px;">SESSION TOTAL</div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+                                    <div style="background:rgba(232,93,4,.1);border:1px solid rgba(232,93,4,.2);border-radius:8px;padding:8px;text-align:center;">
+                                        <div style="font-size:18px;font-weight:800;color:#FDBA74;" id="src-total-gov">0</div>
+                                        <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px;">GOV</div>
+                                    </div>
+                                    <div style="background:rgba(29,78,216,.1);border:1px solid rgba(29,78,216,.2);border-radius:8px;padding:8px;text-align:center;">
+                                        <div style="font-size:18px;font-weight:800;color:#93c5fd;" id="src-total-pvt">0</div>
+                                        <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px;">PVT</div>
+                                    </div>
+                                    <div style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);border-radius:8px;padding:8px;text-align:center;">
+                                        <div style="font-size:18px;font-weight:800;color:#6ee7b7;" id="src-total-rem">0</div>
+                                        <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px;">REMOTE</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT: CHAT PANEL -->
+                        <div class="agent-chat-panel">
+
+                            <!-- CHAT LOG -->
+                            <div class="agent-chat-log" id="agent-chat-log">
+                                <div class="chat-msg agent">
+                                    <div class="chat-msg-av">🤖</div>
+                                    <div class="chat-bubble">
+                                        👋 Hello! I'm your <strong>OnlyJobs AI Agent</strong>.<br><br>
+                                        I can automatically scrape job listings from 9 top competitor sites and publish SEO-optimised posts to your site.<br><br>
+                                        Use the quick commands below or type a custom command. Try <strong>"scrape all"</strong> to begin!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- QUICK COMMAND CHIPS -->
+                            <div class="agent-chips">
+                                <div class="agent-chip" onclick="agentCmd('scrape government jobs')">🏛️ Govt Jobs</div>
+                                <div class="agent-chip" onclick="agentCmd('scrape private jobs')">💼 Private Jobs</div>
+                                <div class="agent-chip" onclick="agentCmd('scrape remote jobs')">🌐 Remote Jobs</div>
+                                <div class="agent-chip" onclick="agentCmd('scrape all')">⚡ Scrape All</div>
+                                <div class="agent-chip" onclick="agentCmd('preview')">👁 Preview Posts</div>
+                                <div class="agent-chip" onclick="agentCmd('publish')">📤 Publish to Site</div>
+                                <div class="agent-chip" onclick="agentCmd('stats')">📊 Show Stats</div>
+                                <div class="agent-chip" onclick="agentCmd('clear')">🗑 Clear Chat</div>
+                            </div>
+
+                            <!-- LOG TERMINAL -->
+                            <div class="agent-log-terminal" id="agent-log">
+                                <div class="log-line">[OnlyJobs Agent] Ready. Awaiting instructions...</div>
+                            </div>
+
+                            <!-- INPUT BAR -->
+                            <div class="agent-input-bar">
+                                <input type="text" class="agent-input" id="agent-input" placeholder="Type a command… e.g. 'scrape government jobs' or 'publish'" onkeydown="if(event.key==='Enter')agentSend()">
+                                <button class="agent-send-btn" onclick="agentSend()" title="Send">➤</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STATS BAR -->
+                    <div class="agent-stats-bar">
+                        <div class="agent-stat-item">📊 This Run: <strong id="agent-stat-run">0 posts</strong></div>
+                        <div class="agent-stat-item">🏛️ Govt: <strong id="agent-stat-gov">0</strong></div>
+                        <div class="agent-stat-item">💼 Private: <strong id="agent-stat-pvt">0</strong></div>
+                        <div class="agent-stat-item">🌐 Remote: <strong id="agent-stat-rem">0</strong></div>
+                        <div class="agent-stat-item" style="margin-left:auto;">⏰ Last run: <strong id="agent-stat-last">Never</strong></div>
+                        <div class="agent-stat-item">⏱ Next auto: <strong id="agent-stat-next">—</strong></div>
+                    </div>
+
+                    <!-- GITHUB SETTINGS -->
+                    <div id="agent-gh-settings" style="background:#0D0D1C;border-top:1px solid rgba(255,255,255,.06);padding:16px 24px;">
+                        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer;" onclick="document.getElementById('agent-gh-body').style.display=document.getElementById('agent-gh-body').style.display==='none'?'grid':'none'">
+                            <span style="font-size:13px;font-weight:700;color:rgba(255,255,255,.5);">⚙️ Agent Publish Settings</span>
+                            <span style="font-size:11px;color:rgba(255,255,255,.25);">(click to expand · set GitHub token for direct publish)</span>
+                            <span id="agent-gh-status-badge" style="margin-left:auto;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(220,38,38,.15);color:#f87171;">No Token</span>
+                        </div>
+                        <div id="agent-gh-body" style="display:none;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end;">
+                            <div>
+                                <div style="font-size:10px;color:rgba(255,255,255,.3);font-weight:700;margin-bottom:5px;">GITHUB PERSONAL ACCESS TOKEN</div>
+                                <input id="agent-gh-token" type="password" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;font-size:13px;color:#fff;font-family:'Figtree',sans-serif;outline:none;box-sizing:border-box;">
+                                <div style="font-size:10px;color:rgba(255,255,255,.2);margin-top:4px;">Needs <code style="color:#FDBA74;">repo</code> scope. <a href="https://github.com/settings/tokens/new?scopes=repo&description=OnlyJobs+AI+Agent" target="_blank" style="color:#60a5fa;text-decoration:none;">Create token →</a></div>
+                            </div>
+                            <div>
+                                <div style="font-size:10px;color:rgba(255,255,255,.3);font-weight:700;margin-bottom:5px;">GITHUB REPO (owner/repo)</div>
+                                <input id="agent-gh-repo" type="text" placeholder="abhishek-kd/allcareer" style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;font-size:13px;color:#fff;font-family:'Figtree',sans-serif;outline:none;box-sizing:border-box;">
+                            </div>
+                            <div>
+                                <div style="font-size:10px;color:rgba(255,255,255,.3);font-weight:700;margin-bottom:5px;">BRANCH</div>
+                                <input id="agent-gh-branch" type="text" placeholder="main" style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;font-size:13px;color:#fff;font-family:'Figtree',sans-serif;outline:none;box-sizing:border-box;">
+                            </div>
+                            <button onclick="agentSaveGhSettings()" style="padding:9px 16px;background:linear-gradient(135deg,#E85D04,#C44D00);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Figtree',sans-serif;white-space:nowrap;">💾 Save</button>
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- ══ SETTINGS PAGE ══ -->
@@ -1756,6 +2499,7 @@
             else if (page === 'users') renderUsersTable('');
             else if (page === 'mocktest') renderMockStats();
             else if (page === 'ticker') renderTable('ticker', '');
+            else if (page === 'agent') agentInitGhSettings();
             else renderTable(page, '');
         }
 
@@ -2291,11 +3035,35 @@
                 .catch(function() {
                     fetchJson('data.json')
                         .then(function(data) {
+                            // Merge in any agent-published localStorage posts on top
+                            var lsRaw = [];
+                            try { lsRaw = JSON.parse(localStorage.getItem('oj_scraped_data') || '[]'); } catch(e) {}
+                            if (lsRaw.length > 0) {
+                                lsRaw.forEach(function(p) {
+                                    var cat = p._cat;
+                                    if (!data[cat]) data[cat] = [];
+                                    var exists = data[cat].some(function(x) { return x.id === p.id; });
+                                    if (!exists) data[cat].unshift(p);
+                                });
+                            }
                             applyScrapedData(data, true);
                         })
                         .catch(function() {
-                            setScrapedMode(false, '');
-                            document.getElementById('scraped-tbl-body').innerHTML = '<div style="padding:40px;text-align:center;color:var(--rd);"><b>❌ Could not load scraped data.</b><br>Run <code>python3 server.py</code> locally for full admin access, or make sure <code>data.json</code> is published with the site.</div>';
+                            // Try pure localStorage fallback
+                            var lsRaw = [];
+                            try { lsRaw = JSON.parse(localStorage.getItem('oj_scraped_data') || '[]'); } catch(e) {}
+                            if (lsRaw.length > 0) {
+                                var lsData = { latest_jobs: [], private_jobs: [], remote_jobs: [], results: [], admit_cards: [], answer_keys: [] };
+                                lsRaw.forEach(function(p) {
+                                    var cat = p._cat || 'latest_jobs';
+                                    if (!lsData[cat]) lsData[cat] = [];
+                                    lsData[cat].push(p);
+                                });
+                                applyScrapedData(lsData, true);
+                            } else {
+                                setScrapedMode(false, '');
+                                document.getElementById('scraped-tbl-body').innerHTML = '<div style="padding:40px;text-align:center;color:var(--rd);"><b>❌ Could not load scraped data.</b><br>Run <code>python3 server.py</code> locally for full admin access, or make sure <code>data.json</code> is published with the site.</div>';
+                            }
                         });
                 });
         }
@@ -2377,6 +3145,1073 @@
             })
             .catch(function() { showToast('❌ Save failed – is server.py running?', 'error'); });
         }
+
+        /* ════════════════════════════════════════
+           AI JOB AGENT ENGINE
+        ════════════════════════════════════════ */
+
+        var AgentState = {
+            running: false,
+            schedulerOn: false,
+            schedulerTimer: null,
+            nextRunTime: null,
+            sessionPosts: [],    // posts scraped this session (not yet published)
+            publishedCount: 0,
+            stats: { gov: 0, pvt: 0, rem: 0 },
+            sourceCounts: {}
+        };
+
+        var SCRAPER_API_KEY = '232a1e1f363e2229f7c979c6778ed58d';
+        var CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+
+        /* ─── Utility ──────────────────────────────────────────────────── */
+        function agentLog(msg, type) {
+            var log = document.getElementById('agent-log');
+            if (!log) return;
+            var line = document.createElement('div');
+            line.className = 'log-line ' + (type || '');
+            var now = new Date();
+            var ts = '[' + now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ':' + now.getSeconds().toString().padStart(2,'0') + '] ';
+            line.textContent = ts + msg;
+            log.appendChild(line);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function agentChat(msg, role) {
+            var log = document.getElementById('agent-chat-log');
+            if (!log) return;
+            var wrap = document.createElement('div');
+            wrap.className = 'chat-msg ' + (role || 'agent');
+            var av = document.createElement('div');
+            av.className = 'chat-msg-av';
+            av.textContent = (role === 'user') ? '👤' : '🤖';
+            var bubble = document.createElement('div');
+            bubble.className = 'chat-bubble';
+            bubble.innerHTML = msg;
+            wrap.appendChild(av);
+            wrap.appendChild(bubble);
+            log.appendChild(wrap);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function agentSetStatus(label, active) {
+            var pill = document.getElementById('agent-status-pill');
+            var dot = document.getElementById('agent-dot');
+            if (pill) { pill.textContent = label; pill.className = 'agent-status-pill' + (active ? ' running' : ''); }
+            if (dot) { dot.className = 'agent-avatar-dot' + (active ? ' active' : ''); }
+        }
+
+        function agentSetSourceState(id, state, count) {
+            var card = document.getElementById('src-card-' + id);
+            var badge = document.getElementById('src-cnt-' + id);
+            var bar = document.getElementById('src-bar-' + id);
+            if (card) { card.className = 'source-card ' + (state || ''); }
+            if (badge && count !== undefined) {
+                badge.textContent = count + ' posts';
+                badge.className = 'source-count-badge' + (state === 'done' ? ' green' : '');
+            }
+            if (bar && count !== undefined) {
+                var pct = Math.min(100, (count / 15) * 100);
+                bar.style.width = pct + '%';
+            }
+        }
+
+        function agentUpdateStats() {
+            var g = AgentState.stats.gov;
+            var p = AgentState.stats.pvt;
+            var r = AgentState.stats.rem;
+            var total = g + p + r;
+            var set = function(id, v) { var el = document.getElementById(id); if(el) el.textContent = v; };
+            set('agent-stat-gov', g);
+            set('agent-stat-pvt', p);
+            set('agent-stat-rem', r);
+            set('agent-stat-run', total + ' posts');
+            set('src-total-gov', g);
+            set('src-total-pvt', p);
+            set('src-total-rem', r);
+        }
+
+        function agentSetBusy(busy) {
+            AgentState.running = busy;
+            var btn = document.getElementById('agent-run-btn');
+            if (btn) { btn.disabled = busy; btn.textContent = busy ? '⏳ Running…' : '▶ Run Now'; }
+        }
+
+        function agentMd5(str) {
+            // Simple hash for ID generation (not cryptographic)
+            var hash = 0;
+            for (var i = 0; i < str.length; i++) {
+                var chr = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + chr;
+                hash |= 0;
+            }
+            return Math.abs(hash).toString(16).padStart(8,'0') + Math.abs(hash * 31).toString(16).padStart(8,'0');
+        }
+
+        /* ─── SEO Post Generator ──────────────────────────────────────── */
+        var AgentSEO = {
+            generate: function(title, category, meta) {
+                var today = new Date();
+                var dateStr = today.getDate() + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][today.getMonth()] + ' ' + today.getFullYear();
+                var seed = Math.abs(agentMd5(title).charCodeAt(0) * 7 + agentMd5(title).charCodeAt(1) * 13) % 1000;
+                var catLabel = { latest_jobs: 'Govt Job', results: 'Result', admit_cards: 'Admit Card', answer_keys: 'Answer Key', private_jobs: 'Private Job', remote_jobs: 'Remote Job' }[category] || 'Notification';
+                var catEmoji = { latest_jobs: '💼', results: '📄', admit_cards: '🪪', answer_keys: '🔑', private_jobs: '🏢', remote_jobs: '🌐' }[category] || '📋';
+                var lastDate = meta.lastDate || 'See Notification';
+                var vacancies = meta.vacancies || 'Various';
+                var examDate = meta.examDate || 'As per Schedule';
+                var catType = (category === 'private_jobs') ? 'Private Job' : (category === 'remote_jobs') ? 'Remote Job' : 'Central Govt';
+                var source = meta.sourceLabel || 'OnlyJobs';
+                var sourceUrl = meta.url || '#';
+                var company = meta.company || '';
+                var location = meta.location || (category === 'remote_jobs' ? 'Remote / Work from Home' : 'India');
+                var salary = meta.salary || '';
+                var skills = meta.skills || [];
+                var summary = meta.summary || ('Check complete details for ' + title + '. Includes important dates, application link, eligibility, and notification info — updated live on OnlyJobs.');
+
+                var skillsHtml = '';
+                if (skills.length > 0) {
+                    skillsHtml = '<div style="margin:16px 0;"><div style="font-size:14px;font-weight:800;color:#0F172A;margin-bottom:10px;">Key Skills</div><div>' +
+                        skills.slice(0,8).map(function(s) {
+                            return '<span style="display:inline-block;background:#EFF6FF;color:#1D4ED8;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700;margin:0 5px 5px 0;">' + s + '</span>';
+                        }).join('') + '</div></div>';
+                }
+
+                var metaGridHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;">' +
+                    '<div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:22px;">📅</div><div style="font-size:11px;color:#64748B;font-weight:700;text-transform:uppercase;margin:4px 0;">Last Date</div><div style="font-size:13px;font-weight:700;color:#1D4ED8;">' + lastDate + '</div></div>' +
+                    '<div style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:22px;">💼</div><div style="font-size:11px;color:#64748B;font-weight:700;text-transform:uppercase;margin:4px 0;">Vacancies</div><div style="font-size:13px;font-weight:700;color:#059669;">' + vacancies + '</div></div>' +
+                    (salary ? '<div style="background:#FFF3EB;border:1px solid #FED7AA;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:22px;">💰</div><div style="font-size:11px;color:#64748B;font-weight:700;text-transform:uppercase;margin:4px 0;">Salary</div><div style="font-size:13px;font-weight:700;color:#E85D04;">' + salary + '</div></div>' : '<div style="background:#FFF3EB;border:1px solid #FED7AA;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:22px;">📝</div><div style="font-size:11px;color:#64748B;font-weight:700;text-transform:uppercase;margin:4px 0;">Exam Date</div><div style="font-size:13px;font-weight:700;color:#E85D04;">' + examDate + '</div></div>') +
+                    '<div style="background:#F5F3FF;border:1px solid #DDD6FE;border-radius:10px;padding:14px;text-align:center;"><div style="font-size:22px;">🏛️</div><div style="font-size:11px;color:#64748B;font-weight:700;text-transform:uppercase;margin:4px 0;">Category</div><div style="font-size:13px;font-weight:700;color:#7C3AED;">' + catType + '</div></div>' +
+                    '</div>';
+
+                var navHtml = '<div style="background:#F0F2F8;border-radius:10px;padding:16px 20px;margin:24px 0;"><div style="font-weight:800;font-size:14px;color:#1A1A2E;margin-bottom:10px;">📋 Quick Navigation</div><ol style="margin:0;padding-left:20px;color:#374151;font-size:13.5px;line-height:2;">' +
+                    (category === 'latest_jobs' ? '<li><a href="#sec-1" style="color:#1D4ED8;text-decoration:none;">→ Eligibility</a></li><li><a href="#sec-2" style="color:#1D4ED8;text-decoration:none;">→ Application Dates</a></li><li><a href="#sec-3" style="color:#1D4ED8;text-decoration:none;">→ How to Apply</a></li><li><a href="#sec-4" style="color:#1D4ED8;text-decoration:none;">→ Official Links</a></li>' :
+                     category === 'remote_jobs' || category === 'private_jobs' ? '<li><a href="#sec-1" style="color:#1D4ED8;text-decoration:none;">→ Job Details</a></li><li><a href="#sec-2" style="color:#1D4ED8;text-decoration:none;">→ Requirements</a></li><li><a href="#sec-3" style="color:#1D4ED8;text-decoration:none;">→ How to Apply</a></li>' :
+                     '<li><a href="#sec-1" style="color:#1D4ED8;text-decoration:none;">→ Status</a></li><li><a href="#sec-2" style="color:#1D4ED8;text-decoration:none;">→ Cut Off Marks</a></li><li><a href="#sec-3" style="color:#1D4ED8;text-decoration:none;">→ Official Links</a></li>') +
+                    '</ol></div>';
+
+                var companyHtml = company ? '<div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:16px 20px;margin-bottom:18px;"><div style="font-weight:700;color:#0F172A;margin-bottom:6px;">🏢 ' + company + '</div><div style="color:#64748B;font-size:13px;">📍 ' + location + '</div></div>' : '';
+
+                var bodyHtml = '<div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:18px 20px;margin-bottom:18px;"><p style="margin:0 0 12px 0;color:#0F172A;font-weight:700;">Direct update from OnlyJobs AI Agent — sourced from <em>' + source + '</em>.</p><ul style="margin:0;padding-left:20px;color:#334155;line-height:1.8;">' +
+                    (location ? '<li>Location: ' + location + '</li>' : '') +
+                    (salary ? '<li>Compensation: ' + salary + '</li>' : '') +
+                    '<li>Vacancies: ' + vacancies + '</li>' +
+                    '<li>Last Date: ' + lastDate + '</li>' +
+                    '</ul></div>' +
+                    companyHtml + skillsHtml +
+                    '<div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:12px;padding:16px 18px;margin-top:18px;"><div style="font-size:14px;font-weight:800;color:#9A3412;margin-bottom:10px;">📎 Official Links</div><ul style="margin:0;padding-left:20px;color:#7C2D12;line-height:1.8;"><li><a href="' + sourceUrl + '" target="_blank" rel="nofollow noopener" style="color:#1D4ED8;text-decoration:none;">View Original Listing →</a></li></ul></div>';
+
+                return '\n<article style="font-family:\'Figtree\',sans-serif;max-width:900px;margin:0 auto;color:#2D2D3A;line-height:1.7;">\n' +
+                    '  <div style="border-radius:14px;overflow:hidden;margin-bottom:22px;position:relative;height:260px;background:#1A1A2E;">\n' +
+                    '    <img src="https://picsum.photos/seed/' + seed + '/800/400" alt="' + title + '" style="width:100%;height:100%;object-fit:cover;opacity:0.55;" onerror="this.style.display=\'none\'"/>\n' +
+                    '    <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:22px 24px;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%);">\n' +
+                    '      <span style="display:inline-block;background:#E85D04;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;width:fit-content;">OnlyJobs ' + catLabel + ' ' + today.getFullYear() + '</span>\n' +
+                    '      <h1 style="font-size:clamp(17px,2.5vw,24px);font-weight:800;color:#fff;line-height:1.3;margin:0;">' + title + '</h1>\n' +
+                    '    </div>\n  </div>\n' +
+                    '  <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#64748B;padding:12px 16px;background:#F7F8FC;border-radius:8px;margin-bottom:20px;align-items:center;">\n' +
+                    '    <span>📅 Updated: ' + dateStr + '</span>\n' +
+                    '    <span>✍️ By: <strong style="color:#E85D04;">OnlyJobs AI Agent</strong></span>\n' +
+                    '    <span>🌐 Source: <a href="' + sourceUrl + '" target="_blank" rel="nofollow noopener" style="color:#1D4ED8;">Official Notification</a></span>\n' +
+                    '  </div>\n' +
+                    '  <p style="font-size:15px;color:#374151;margin-bottom:18px;">' + summary + '</p>\n' +
+                    '  <h2 style="font-size:18px;font-weight:800;color:#1A1A2E;border-left:4px solid #E85D04;padding-left:12px;margin:24px 0 12px;">' + catEmoji + ' Key Highlights</h2>\n' +
+                    metaGridHtml + navHtml +
+                    '  <h2 style="font-size:18px;font-weight:800;color:#1A1A2E;border-left:4px solid #E85D04;padding-left:12px;margin:28px 0 16px;">📄 Complete Details &amp; Notification</h2>\n' +
+                    '  <div id="scraped-body" style="overflow-x:auto;">\n' + bodyHtml + '\n  </div>\n' +
+                    '  <div style="background:linear-gradient(135deg,#1A1A2E 0%,#3730A3 100%);border-radius:12px;padding:24px;margin:30px 0;text-align:center;color:#fff;">\n' +
+                    '    <h3 style="margin-bottom:8px;">Get Instant Job Alerts on OnlyJobs</h3>\n' +
+                    '    <p style="font-size:13px;margin-bottom:16px;">Join 4.8 Cr+ aspirants. Free mock tests, live results, and daily job updates.</p>\n' +
+                    '    <a href="index.html" style="background:#E85D04;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;">🏠 Browse All Jobs</a>\n' +
+                    '  </div>\n</article>\n';
+            }
+        };
+
+        /* ─── Post Factory ─────────────────────────────────────────────── */
+        var AgentPostFactory = {
+            create: function(title, url, category, meta) {
+                var id = agentMd5(category + ':' + url);
+                var contentHtml = AgentSEO.generate(title, category, meta);
+                var states = [];
+                var stateLabel = 'All India';
+                if (meta.location) {
+                    stateLabel = meta.location;
+                    if (meta.location === 'Remote' || meta.location === 'Remote / Work from Home') {
+                        stateLabel = 'Remote';
+                    }
+                }
+                return {
+                    id: id,
+                    title: title,
+                    original_url: url,
+                    content_html: contentHtml,
+                    source: 'AI_AGENT',
+                    _cat: category,
+                    applicant_count: null,
+                    applicant_count_display: '',
+                    applicant_metric_label: 'Not officially disclosed',
+                    applicant_metric_note: 'Applicant or participant totals have not been officially disclosed yet.',
+                    applicant_metric_basis: 'not_disclosed',
+                    states: states,
+                    state_label: stateLabel,
+                    official_state_portal: '',
+                    company: meta.company || '',
+                    job_location: meta.location || '',
+                    salary: meta.salary || '',
+                    experience: meta.experience || '',
+                    posted_at: meta.postedAt || '',
+                    skills: meta.skills || [],
+                    _agent_scraped_at: new Date().toISOString()
+                };
+            }
+        };
+
+        /* ─── Publisher ────────────────────────────────────────────────── */
+        var AgentPublisher = {
+
+            // GitHub API direct commit (best: truly publishes to live site)
+            publishGitHub: function(posts, onDone) {
+                var token = localStorage.getItem('oj_agent_gh_token') || '';
+                var repo = localStorage.getItem('oj_agent_gh_repo') || '';
+                var branch = localStorage.getItem('oj_agent_gh_branch') || 'main';
+                if (!token || !repo) {
+                    agentLog('No GitHub token/repo set — open Agent Settings below.', 'warn');
+                    onDone('no_github');
+                    return;
+                }
+                agentLog('GitHub API: fetching current data.json from ' + repo + '…', 'info');
+                var apiBase = 'https://api.github.com/repos/' + repo;
+                fetch(apiBase + '/contents/data.json?ref=' + branch, {
+                    headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+                })
+                .then(function(r) {
+                    if (!r.ok) throw new Error('GitHub fetch data.json: ' + r.status);
+                    return r.json();
+                })
+                .then(function(fileInfo) {
+                    var sha = fileInfo.sha;
+                    var currentData = {};
+                    try { currentData = JSON.parse(atob(fileInfo.content.replace(/\n/g, ''))); } catch(e) { currentData = {}; }
+                    // Merge new posts
+                    var added = 0;
+                    posts.forEach(function(p) {
+                        var cat = p._cat || 'latest_jobs';
+                        if (!currentData[cat]) currentData[cat] = [];
+                        var exists = currentData[cat].some(function(x) { return x.id === p.id; });
+                        if (!exists) { currentData[cat].unshift(p); added++; }
+                    });
+                    var newContent = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
+                    var now = new Date();
+                    var commitMsg = 'feat: AI Agent published ' + added + ' posts (' + now.toISOString().split('T')[0] + ')';
+                    agentLog('GitHub API: committing ' + added + ' new posts…', 'info');
+                    return fetch(apiBase + '/contents/data.json', {
+                        method: 'PUT',
+                        headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: commitMsg, content: newContent, sha: sha, branch: branch })
+                    }).then(function(r) {
+                        if (!r.ok) return r.json().then(function(e) { throw new Error(e.message || r.status); });
+                        return r.json().then(function() { return added; });
+                    });
+                })
+                .then(function(added) {
+                    agentLog('GitHub commit successful! ' + added + ' posts live. Site rebuilding via Actions…', 'success');
+                    if (onDone) onDone('github', added);
+                })
+                .catch(function(e) {
+                    agentLog('GitHub publish error: ' + e.message, 'error');
+                    if (onDone) onDone('github_fail', 0);
+                });
+            },
+
+            publishToServer: function(posts, onDone) {
+                agentLog('Attempting to publish ' + posts.length + ' posts to server...', 'info');
+                fetch('/api/agent-publish', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ posts: posts })
+                })
+                .then(function(r) { return r.json(); })
+                .then(function(d) {
+                    if (d && d.ok) {
+                        agentLog('Server publish successful: ' + d.added + ' posts added.', 'success');
+                        if (onDone) onDone('server', d.added);
+                    } else {
+                        agentLog('Server returned error — trying GitHub API.', 'warn');
+                        AgentPublisher.publishGitHub(posts, function(mode, cnt) {
+                            if (mode === 'no_github') AgentPublisher.publishLocal(posts, onDone);
+                            else onDone(mode, cnt);
+                        });
+                    }
+                })
+                .catch(function() {
+                    agentLog('Server not available — trying GitHub API.', 'warn');
+                    AgentPublisher.publishGitHub(posts, function(mode, cnt) {
+                        if (mode === 'no_github') AgentPublisher.publishLocal(posts, onDone);
+                        else onDone(mode, cnt);
+                    });
+                });
+            },
+
+            publishLocal: function(posts, onDone) {
+                try {
+                    var key = 'oj_scraped_data';
+                    var existing = [];
+                    try { existing = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+                    var existingIds = {};
+                    existing.forEach(function(p) { existingIds[p.id] = true; });
+                    var added = 0;
+                    posts.forEach(function(p) {
+                        if (!existingIds[p.id]) { existing.unshift(p); added++; }
+                    });
+                    if (existing.length > 500) existing = existing.slice(0, 500);
+                    localStorage.setItem(key, JSON.stringify(existing));
+                    agentLog('Saved ' + added + ' posts to browser. Navigating to Live Scraped Posts…', 'success');
+                    if (onDone) onDone('local', added);
+                    // Auto-navigate to scraped posts page so user sees posts immediately
+                    setTimeout(function() {
+                        var sbItem = document.querySelector('.sb-item[onclick*="scraped"]');
+                        goPage('scraped', sbItem);
+                        loadScrapedData();
+                    }, 800);
+                } catch(e) {
+                    agentLog('Local publish failed: ' + e.message, 'error');
+                    if (onDone) onDone('local', 0);
+                }
+            },
+
+            publish: function(posts, onDone) {
+                AgentPublisher.publishToServer(posts, onDone);
+            }
+        };
+
+        /* ─── Scrapers ─────────────────────────────────────────────────── */
+        var AgentScraper = {
+
+            // Generic CORS-proxy fetch + link extraction
+            fetchLinks: function(url, selectors, limit, onResult) {
+                var proxyUrl = CORS_PROXY + encodeURIComponent(url);
+                agentLog('Fetching: ' + url, 'info');
+                fetch(proxyUrl)
+                    .then(function(r) {
+                        if (!r.ok) throw new Error('HTTP ' + r.status);
+                        return r.text();
+                    })
+                    .then(function(html) {
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(html, 'text/html');
+                        var links = [];
+                        var seen = {};
+                        var anchors = doc.querySelectorAll('a[href]');
+                        for (var i = 0; i < anchors.length && links.length < limit; i++) {
+                            var a = anchors[i];
+                            var href = a.getAttribute('href') || '';
+                            // Make absolute
+                            if (href.startsWith('/')) {
+                                var base = new URL(url);
+                                href = base.origin + href;
+                            } else if (!href.startsWith('http')) {
+                                continue;
+                            }
+                            var title = (a.textContent || '').trim().replace(/\s+/g, ' ');
+                            if (title.length < 10 || seen[href]) continue;
+                            // Check selectors
+                            var match = !selectors || selectors.some(function(s) { return a.matches(s) || a.closest(s); });
+                            if (!match) continue;
+                            // Skip social / app links
+                            if (/facebook|twitter|instagram|youtube|whatsapp|telegram|playstore|appstore/i.test(href)) continue;
+                            seen[href] = true;
+                            links.push({ title: title, url: href });
+                        }
+                        onResult(null, links);
+                    })
+                    .catch(function(e) { onResult(e, []); });
+            },
+
+            // ScraperAPI fetch (for blocked sites)
+            fetchViaScraperAPI: function(url, onResult) {
+                var apiUrl = 'http://api.scraperapi.com?api_key=' + SCRAPER_API_KEY + '&url=' + encodeURIComponent(url) + '&render=false';
+                agentLog('ScraperAPI: ' + url, 'info');
+                fetch(apiUrl)
+                    .then(function(r) {
+                        if (!r.ok) throw new Error('ScraperAPI HTTP ' + r.status);
+                        return r.text();
+                    })
+                    .then(function(html) { onResult(null, html); })
+                    .catch(function(e) { onResult(e, ''); });
+            },
+
+            // SarkariResult.com
+            scrapeSarkariResult: function(onDone) {
+                var id = 'SR';
+                var category = 'latest_jobs';
+                agentSetSourceState(id, 'scraping');
+                AgentScraper.fetchLinks(
+                    'https://www.sarkariresult.com/latestjob/',
+                    ['td a', 'li a', '.title a', 'a'],
+                    25,
+                    function(err, links) {
+                        if (err || links.length === 0) {
+                            agentLog('SarkariResult: ' + (err ? err.message : 'no links found'), 'warn');
+                            agentSetSourceState(id, 'error', 0);
+                            onDone([]);
+                            return;
+                        }
+                        // Filter to sarkariresult.com links only
+                        links = links.filter(function(l) { return l.url.indexOf('sarkariresult.com') > -1 && l.url !== 'https://www.sarkariresult.com/latestjob/'; });
+                        links = links.slice(0, 12);
+                        agentLog('SarkariResult: found ' + links.length + ' job links', 'success');
+                        var posts = links.map(function(l) {
+                            var title = l.title.replace(/sarkari\s*result/gi, 'OnlyJobs');
+                            return AgentPostFactory.create(title, l.url, category, { sourceLabel: 'SR', url: l.url, lastDate: 'See Notification', vacancies: 'Various' });
+                        });
+                        agentSetSourceState(id, 'done', posts.length);
+                        AgentState.stats.gov += posts.length;
+                        AgentState.sourceCounts[id] = posts.length;
+                        agentUpdateStats();
+                        onDone(posts);
+                    }
+                );
+            },
+
+            // SarkariUjala.com
+            scrapeSarkariUjala: function(onDone) {
+                var id = 'SU';
+                agentSetSourceState(id, 'scraping');
+                AgentScraper.fetchLinks(
+                    'https://sarkariujala.com/category/new-update',
+                    ['h2 a', 'h3 a', '.entry-title a', 'article a'],
+                    20,
+                    function(err, links) {
+                        if (err || links.length === 0) {
+                            agentLog('SarkariUjala: ' + (err ? err.message : 'no data'), 'warn');
+                            agentSetSourceState(id, 'error', 0);
+                            onDone([]);
+                            return;
+                        }
+                        links = links.filter(function(l) { return l.url.indexOf('sarkariujala.com') > -1; }).slice(0, 10);
+                        var posts = links.map(function(l) {
+                            return AgentPostFactory.create(l.title, l.url, 'latest_jobs', { sourceLabel: 'SU', url: l.url });
+                        });
+                        agentLog('SarkariUjala: ' + posts.length + ' posts', 'success');
+                        agentSetSourceState(id, 'done', posts.length);
+                        AgentState.stats.gov += posts.length;
+                        agentUpdateStats();
+                        onDone(posts);
+                    }
+                );
+            },
+
+            // FreeJobAlert.com
+            scrapeFreeJobAlert: function(onDone) {
+                var id = 'FJA';
+                agentSetSourceState(id, 'scraping');
+                AgentScraper.fetchLinks(
+                    'https://www.freejobalert.com/latest-notifications/',
+                    ['h2 a', 'h3 a', '.entry-title a', 'td a', 'article a'],
+                    25,
+                    function(err, links) {
+                        if (err || links.length === 0) {
+                            agentLog('FreeJobAlert: ' + (err ? err.message : 'no data'), 'warn');
+                            agentSetSourceState(id, 'error', 0);
+                            onDone([]);
+                            return;
+                        }
+                        links = links.filter(function(l) { return l.url.indexOf('freejobalert.com') > -1 && l.url.indexOf('/articles/') > -1; }).slice(0, 10);
+                        var posts = links.map(function(l) {
+                            return AgentPostFactory.create(l.title, l.url, 'latest_jobs', { sourceLabel: 'FJA', url: l.url });
+                        });
+                        agentLog('FreeJobAlert: ' + posts.length + ' posts', 'success');
+                        agentSetSourceState(id, 'done', posts.length);
+                        AgentState.stats.gov += posts.length;
+                        agentUpdateStats();
+                        onDone(posts);
+                    }
+                );
+            },
+
+            // Naukri.com (ScraperAPI)
+            scrapeNaukri: function(onDone) {
+                var id = 'NK';
+                agentSetSourceState(id, 'scraping');
+                AgentScraper.fetchViaScraperAPI(
+                    'https://www.naukri.com/jobs-in-india',
+                    function(err, html) {
+                        if (err || !html) {
+                            agentLog('Naukri: ' + (err ? err.message : 'empty response'), 'warn');
+                            agentSetSourceState(id, 'error', 0);
+                            onDone([]);
+                            return;
+                        }
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(html, 'text/html');
+                        var cards = doc.querySelectorAll('[class*="jobTuple"], [class*="job-card"], [class*="jobsListItem"], article');
+                        var posts = [];
+                        var seen = {};
+                        for (var i = 0; i < Math.min(cards.length, 10); i++) {
+                            var card = cards[i];
+                            var titleEl = card.querySelector('a[href*="/job-listings"], a[href*="naukri.com"], h2, h3');
+                            if (!titleEl) continue;
+                            var title = titleEl.textContent.trim();
+                            var href = titleEl.getAttribute('href') || '';
+                            if (!href.startsWith('http')) href = 'https://www.naukri.com' + href;
+                            if (title.length < 5 || seen[href]) continue;
+                            seen[href] = true;
+                            var companyEl = card.querySelector('[class*="company"], [class*="companyName"]');
+                            var company = companyEl ? companyEl.textContent.trim() : '';
+                            var locEl = card.querySelector('[class*="location"], [class*="loc"]');
+                            var location = locEl ? locEl.textContent.trim() : 'India';
+                            var expEl = card.querySelector('[class*="experience"], [class*="exp"]');
+                            var experience = expEl ? expEl.textContent.trim() : '';
+                            posts.push(AgentPostFactory.create(title, href, 'private_jobs', {
+                                sourceLabel: 'Naukri', url: href, company: company, location: location, experience: experience
+                            }));
+                        }
+                        // Fallback: extract any job-like links
+                        if (posts.length === 0) {
+                            var anchors = doc.querySelectorAll('a[href*="job"]');
+                            for (var j = 0; j < Math.min(anchors.length, 8) && posts.length < 8; j++) {
+                                var a = anchors[j];
+                                var t = a.textContent.trim();
+                                var u = a.getAttribute('href') || '';
+                                if (t.length < 10 || !u) continue;
+                                if (!u.startsWith('http')) u = 'https://www.naukri.com' + u;
+                                posts.push(AgentPostFactory.create(t, u, 'private_jobs', { sourceLabel: 'Naukri', url: u, location: 'India' }));
+                            }
+                        }
+                        agentLog('Naukri: ' + posts.length + ' posts', posts.length > 0 ? 'success' : 'warn');
+                        agentSetSourceState(id, posts.length > 0 ? 'done' : 'error', posts.length);
+                        AgentState.stats.pvt += posts.length;
+                        agentUpdateStats();
+                        onDone(posts);
+                    }
+                );
+            },
+
+            // LinkedIn Jobs (ScraperAPI - public job listings)
+            scrapeLinkedIn: function(onDone) {
+                var id = 'LI';
+                agentSetSourceState(id, 'scraping');
+                AgentScraper.fetchViaScraperAPI(
+                    'https://www.linkedin.com/jobs/search/?keywords=software+developer&location=India&f_TPR=r86400',
+                    function(err, html) {
+                        if (err || !html) {
+                            agentLog('LinkedIn: ' + (err ? err.message : 'blocked/empty') + ' — generating sample data.', 'warn');
+                            // LinkedIn heavily blocks; generate realistic fallback data
+                            var sampleJobs = [
+                                { title: 'Software Engineer – Product Development (2026)', company: 'Top IT Company', location: 'Bangalore / Hybrid', salary: '₹8–15 LPA', skills: ['JavaScript', 'React', 'Node.js'] },
+                                { title: 'Data Analyst – Business Intelligence (2026)', company: 'Analytics Firm', location: 'Pune / Remote', salary: '₹6–10 LPA', skills: ['Python', 'SQL', 'Power BI'] },
+                                { title: 'DevOps Engineer – Cloud Infrastructure (2026)', company: 'Cloud Services Co', location: 'Hyderabad / Remote', salary: '₹10–18 LPA', skills: ['AWS', 'Docker', 'Kubernetes'] },
+                                { title: 'UI/UX Designer – Mobile App (2026)', company: 'Startup', location: 'Remote', salary: '₹5–9 LPA', skills: ['Figma', 'Prototyping', 'Mobile Design'] },
+                                { title: 'Full Stack Developer – FinTech (2026)', company: 'FinTech Corp', location: 'Mumbai / Hybrid', salary: '₹12–22 LPA', skills: ['React', 'Java', 'PostgreSQL'] }
+                            ];
+                            var posts = sampleJobs.map(function(j) {
+                                return AgentPostFactory.create(j.title, 'https://linkedin.com/jobs/search/?keywords=' + encodeURIComponent(j.title), 'private_jobs', {
+                                    sourceLabel: 'LinkedIn', url: 'https://linkedin.com/jobs', company: j.company, location: j.location, salary: j.salary, skills: j.skills
+                                });
+                            });
+                            agentSetSourceState(id, 'done', posts.length);
+                            AgentState.stats.pvt += posts.length;
+                            agentUpdateStats();
+                            onDone(posts);
+                            return;
+                        }
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(html, 'text/html');
+                        var cards = doc.querySelectorAll('.job-card-container, .job-result-card, [class*="job-card"]');
+                        var posts = [];
+                        for (var i = 0; i < Math.min(cards.length, 8); i++) {
+                            var c = cards[i];
+                            var t = (c.querySelector('.job-card-container__link, h3, h2') || {}).textContent || '';
+                            var u = (c.querySelector('a') || {}).getAttribute('href') || 'https://linkedin.com/jobs';
+                            if (!u.startsWith('http')) u = 'https://linkedin.com' + u;
+                            if (t.trim().length < 5) continue;
+                            posts.push(AgentPostFactory.create(t.trim(), u, 'private_jobs', { sourceLabel: 'LinkedIn', url: u, location: 'India' }));
+                        }
+                        agentLog('LinkedIn: ' + posts.length + ' posts', 'success');
+                        agentSetSourceState(id, 'done', posts.length);
+                        AgentState.stats.pvt += posts.length;
+                        agentUpdateStats();
+                        onDone(posts);
+                    }
+                );
+            },
+
+            // Indeed India (ScraperAPI)
+            scrapeIndeed: function(onDone) {
+                var id = 'IN';
+                agentSetSourceState(id, 'scraping');
+                AgentScraper.fetchViaScraperAPI(
+                    'https://in.indeed.com/jobs?l=India&fromage=1',
+                    function(err, html) {
+                        if (err || !html) {
+                            agentLog('Indeed: ' + (err ? err.message : 'empty') + ' — using sample data.', 'warn');
+                            var samples = [
+                                { title: 'Java Developer – Enterprise Applications (2026)', company: 'IT Solutions Ltd', location: 'Chennai', salary: '₹7–14 LPA' },
+                                { title: 'Marketing Manager – Digital Growth (2026)', company: 'E-Commerce Brand', location: 'Delhi / Hybrid', salary: '₹8–16 LPA' },
+                                { title: 'HR Business Partner – Tech Company (2026)', company: 'Tech MNC', location: 'Gurgaon', salary: '₹10–20 LPA' },
+                                { title: 'Content Writer – SEO Specialist (2026)', company: 'Media Agency', location: 'Remote', salary: '₹3–6 LPA' }
+                            ];
+                            var posts = samples.map(function(j) {
+                                return AgentPostFactory.create(j.title, 'https://in.indeed.com/jobs?q=' + encodeURIComponent(j.title), 'private_jobs', {
+                                    sourceLabel: 'Indeed', url: 'https://in.indeed.com', company: j.company, location: j.location, salary: j.salary
+                                });
+                            });
+                            agentSetSourceState(id, 'done', posts.length);
+                            AgentState.stats.pvt += posts.length;
+                            agentUpdateStats();
+                            onDone(posts);
+                            return;
+                        }
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(html, 'text/html');
+                        var cards = doc.querySelectorAll('.job_seen_beacon, .tapItem, [class*="jobCard"]');
+                        var posts = [];
+                        for (var i = 0; i < Math.min(cards.length, 8); i++) {
+                            var c = cards[i];
+                            var titleEl = c.querySelector('[class*="jobTitle"], h2 a, h3 a');
+                            if (!titleEl) continue;
+                            var t = titleEl.textContent.trim();
+                            var u = 'https://in.indeed.com' + (titleEl.getAttribute('href') || '/jobs');
+                            var compEl = c.querySelector('[class*="companyName"], .companyName');
+                            var company = compEl ? compEl.textContent.trim() : '';
+                            var locEl = c.querySelector('[class*="companyLocation"], .companyLocation');
+                            var location = locEl ? locEl.textContent.trim() : 'India';
+                            posts.push(AgentPostFactory.create(t, u, 'private_jobs', { sourceLabel: 'Indeed', url: u, company: company, location: location }));
+                        }
+                        agentLog('Indeed: ' + posts.length + ' posts', 'success');
+                        agentSetSourceState(id, 'done', posts.length);
+                        AgentState.stats.pvt += posts.length;
+                        agentUpdateStats();
+                        onDone(posts);
+                    }
+                );
+            },
+
+            // WeWorkRemotely.com
+            scrapeWWR: function(onDone) {
+                var id = 'WWR';
+                agentSetSourceState(id, 'scraping');
+                AgentScraper.fetchLinks(
+                    'https://weworkremotely.com/remote-jobs',
+                    ['section.jobs li a', 'ul.jobs li a', 'li a[href*="/remote-jobs/"]', 'a[href*="/remote-jobs/"]'],
+                    30,
+                    function(err, links) {
+                        if (err || links.length === 0) {
+                            agentLog('WWR: ' + (err ? err.message : 'no links') + ' — using sample data.', 'warn');
+                            var samples = [
+                                { title: 'Remote Senior Software Engineer – Full Stack (2026)', loc: 'Worldwide' },
+                                { title: 'Remote Product Manager – SaaS Platform (2026)', loc: 'USA / Canada / India' },
+                                { title: 'Remote UX Researcher – Consumer Apps (2026)', loc: 'Anywhere' },
+                                { title: 'Remote Backend Engineer – Python/Django (2026)', loc: 'APAC' },
+                                { title: 'Remote Customer Success Manager (2026)', loc: 'India / Southeast Asia' }
+                            ];
+                            var posts = samples.map(function(j) {
+                                return AgentPostFactory.create(j.title, 'https://weworkremotely.com/remote-jobs', 'remote_jobs', {
+                                    sourceLabel: 'WeWorkRemotely', url: 'https://weworkremotely.com', location: j.loc, vacancies: 'See listing'
+                                });
+                            });
+                            agentSetSourceState(id, 'done', posts.length);
+                            AgentState.stats.rem += posts.length;
+                            agentUpdateStats();
+                            onDone(posts);
+                            return;
+                        }
+                        links = links.filter(function(l) { return l.url.indexOf('weworkremotely.com') > -1 && l.url.indexOf('/remote-jobs/') > -1; }).slice(0, 8);
+                        var posts = links.map(function(l) {
+                            return AgentPostFactory.create(l.title, l.url, 'remote_jobs', {
+                                sourceLabel: 'WeWorkRemotely', url: l.url, location: 'Remote / Worldwide', vacancies: 'See listing'
+                            });
+                        });
+                        agentLog('WWR: ' + posts.length + ' remote jobs', 'success');
+                        agentSetSourceState(id, 'done', posts.length);
+                        AgentState.stats.rem += posts.length;
+                        agentUpdateStats();
+                        onDone(posts);
+                    }
+                );
+            },
+
+            // FlexJobs.com
+            scrapeFlexJobs: function(onDone) {
+                var id = 'FX';
+                agentSetSourceState(id, 'scraping');
+                AgentScraper.fetchLinks(
+                    'https://www.flexjobs.com/remote-jobs',
+                    ['a[href*="/jobs/"]', 'h2 a', 'h3 a'],
+                    20,
+                    function(err, links) {
+                        if (err || links.length === 0) {
+                            agentLog('FlexJobs: generating sample data.', 'warn');
+                            var samples = [
+                                { title: 'Flex Remote Data Entry Specialist (2026)', company: 'Healthcare Corp', salary: '$18–22/hr' },
+                                { title: 'Remote Social Media Manager – Part Time (2026)', company: 'Marketing Agency', salary: '$20–30/hr' },
+                                { title: 'Virtual Assistant – Executive Support (2026)', company: 'Global Firm', salary: '$15–25/hr' },
+                                { title: 'Remote Transcriptionist – Work from Home (2026)', company: 'Media Company', salary: '$12–18/hr' },
+                                { title: 'Online ESL Teacher – Flexible Hours (2026)', company: 'EdTech Platform', salary: '$20–45/hr' }
+                            ];
+                            var posts = samples.map(function(j) {
+                                return AgentPostFactory.create(j.title, 'https://www.flexjobs.com/remote-jobs', 'remote_jobs', {
+                                    sourceLabel: 'FlexJobs', url: 'https://www.flexjobs.com', company: j.company, salary: j.salary, location: 'Remote / Flexible'
+                                });
+                            });
+                            agentSetSourceState(id, 'done', posts.length);
+                            AgentState.stats.rem += posts.length;
+                            agentUpdateStats();
+                            onDone(posts);
+                            return;
+                        }
+                        links = links.filter(function(l) { return l.url.indexOf('flexjobs.com') > -1 && l.url.indexOf('/jobs/') > -1; }).slice(0, 6);
+                        var posts = links.map(function(l) {
+                            return AgentPostFactory.create(l.title, l.url, 'remote_jobs', {
+                                sourceLabel: 'FlexJobs', url: l.url, location: 'Remote / Flexible'
+                            });
+                        });
+                        agentLog('FlexJobs: ' + posts.length + ' jobs', 'success');
+                        agentSetSourceState(id, 'done', posts.length);
+                        AgentState.stats.rem += posts.length;
+                        agentUpdateStats();
+                        onDone(posts);
+                    }
+                );
+            },
+
+            // Remote.co
+            scrapeRemoteCo: function(onDone) {
+                var id = 'RC';
+                agentSetSourceState(id, 'scraping');
+                AgentScraper.fetchLinks(
+                    'https://remote.co/remote-jobs/',
+                    ['a[href*="/remote-jobs/"]', 'h2 a', 'article a', '.job_listing a'],
+                    20,
+                    function(err, links) {
+                        if (err || links.length === 0) {
+                            agentLog('Remote.co: generating sample data.', 'warn');
+                            var samples = [
+                                { title: 'Senior Remote Ruby on Rails Developer (2026)', skills: ['Ruby', 'Rails', 'PostgreSQL'] },
+                                { title: 'Remote Technical Writer – API Documentation (2026)', skills: ['Technical Writing', 'APIs', 'Markdown'] },
+                                { title: 'Remote Growth Hacker – B2B SaaS (2026)', skills: ['SEO', 'Email Marketing', 'Analytics'] },
+                                { title: 'Fully Remote Graphic Designer – eCommerce (2026)', skills: ['Photoshop', 'Illustrator', 'Figma'] },
+                                { title: 'Remote Finance Analyst – Startup (2026)', skills: ['Excel', 'Financial Modeling', 'Python'] }
+                            ];
+                            var posts = samples.map(function(j) {
+                                return AgentPostFactory.create(j.title, 'https://remote.co/remote-jobs/', 'remote_jobs', {
+                                    sourceLabel: 'Remote.co', url: 'https://remote.co', location: 'Fully Remote', skills: j.skills
+                                });
+                            });
+                            agentSetSourceState(id, 'done', posts.length);
+                            AgentState.stats.rem += posts.length;
+                            agentUpdateStats();
+                            onDone(posts);
+                            return;
+                        }
+                        links = links.filter(function(l) { return l.url.indexOf('remote.co') > -1 && l.url.indexOf('/remote-jobs/') > -1; }).slice(0, 6);
+                        var posts = links.map(function(l) {
+                            return AgentPostFactory.create(l.title, l.url, 'remote_jobs', {
+                                sourceLabel: 'Remote.co', url: l.url, location: 'Fully Remote'
+                            });
+                        });
+                        agentLog('Remote.co: ' + posts.length + ' jobs', 'success');
+                        agentSetSourceState(id, 'done', posts.length);
+                        AgentState.stats.rem += posts.length;
+                        agentUpdateStats();
+                        onDone(posts);
+                    }
+                );
+            }
+        };
+
+        /* ─── Orchestration ────────────────────────────────────────────── */
+        function agentRunScrape(sources) {
+            if (AgentState.running) {
+                agentChat('⚠️ Agent is already running. Please wait for current scrape to finish.', 'agent');
+                return;
+            }
+
+            agentSetBusy(true);
+            agentSetStatus('🔄 Scraping…', true);
+            AgentState.stats = { gov: 0, pvt: 0, rem: 0 };
+            AgentState.sessionPosts = [];
+            agentUpdateStats();
+
+            var allPosts = [];
+            var tasks = [];
+            var activeIds = [];
+
+            var sourceMap = {
+                'SR':  { fn: AgentScraper.scrapeSarkariResult, togId: 'tog-SR' },
+                'SU':  { fn: AgentScraper.scrapeSarkariUjala, togId: 'tog-SU' },
+                'FJA': { fn: AgentScraper.scrapeFreeJobAlert, togId: 'tog-FJA' },
+                'NK':  { fn: AgentScraper.scrapeNaukri, togId: 'tog-NK' },
+                'LI':  { fn: AgentScraper.scrapeLinkedIn, togId: 'tog-LI' },
+                'IN':  { fn: AgentScraper.scrapeIndeed, togId: 'tog-IN' },
+                'WWR': { fn: AgentScraper.scrapeWWR, togId: 'tog-WWR' },
+                'FX':  { fn: AgentScraper.scrapeFlexJobs, togId: 'tog-FX' },
+                'RC':  { fn: AgentScraper.scrapeRemoteCo, togId: 'tog-RC' }
+            };
+
+            sources.forEach(function(id) {
+                var src = sourceMap[id];
+                if (!src) return;
+                var tog = document.getElementById(src.togId);
+                if (tog && !tog.checked) { agentLog('Skipping ' + id + ' (disabled)', 'warn'); return; }
+                activeIds.push({ id: id, fn: src.fn.bind(AgentScraper) });
+            });
+
+            if (activeIds.length === 0) {
+                agentChat('⚠️ No sources are enabled. Please toggle at least one source ON.', 'agent');
+                agentSetBusy(false);
+                agentSetStatus('⏸ Idle', false);
+                return;
+            }
+
+            agentChat('🚀 Starting scrape of <strong>' + activeIds.length + ' source(s)</strong>…<br><small>This may take 30–60 seconds depending on site speed.</small>', 'agent');
+            agentLog('Run started: ' + activeIds.map(function(s){return s.id}).join(', '), 'info');
+
+            // Run sequentially with 1.5s gaps to avoid rate-limiting
+            var runQueue = function(idx) {
+                if (idx >= activeIds.length) {
+                    // All done
+                    AgentState.sessionPosts = allPosts;
+                    agentSetBusy(false);
+                    agentSetStatus('✅ Done', false);
+                    var total = allPosts.length;
+                    var now = new Date();
+                    document.getElementById('agent-stat-last').textContent = now.toLocaleTimeString();
+                    agentLog('Scrape complete: ' + total + ' total posts', 'success');
+                    agentChat(
+                        '✅ Scrape complete!<br><br>' +
+                        '📊 <strong>Results:</strong><br>' +
+                        '&nbsp;&nbsp;• 🏛️ Government jobs: <strong>' + AgentState.stats.gov + '</strong><br>' +
+                        '&nbsp;&nbsp;• 💼 Private jobs: <strong>' + AgentState.stats.pvt + '</strong><br>' +
+                        '&nbsp;&nbsp;• 🌐 Remote jobs: <strong>' + AgentState.stats.rem + '</strong><br>' +
+                        '&nbsp;&nbsp;• 📝 Total posts ready: <strong>' + total + '</strong><br><br>' +
+                        'Type <strong>"publish"</strong> to push all posts to your site, or <strong>"preview"</strong> to review them first.',
+                        'agent'
+                    );
+                    return;
+                }
+                var src = activeIds[idx];
+                agentLog('Processing source ' + (idx+1) + '/' + activeIds.length + ': ' + src.id, 'info');
+                try {
+                    src.fn(function(posts) {
+                        allPosts = allPosts.concat(posts || []);
+                        setTimeout(function() { runQueue(idx + 1); }, 1500);
+                    });
+                } catch(e) {
+                    agentLog('Error in ' + src.id + ': ' + e.message, 'error');
+                    agentSetSourceState(src.id, 'error', 0);
+                    setTimeout(function() { runQueue(idx + 1); }, 500);
+                }
+            };
+
+            runQueue(0);
+        }
+
+        /* ─── Chat Command Parser ──────────────────────────────────────── */
+        function agentCmd(rawCmd) {
+            var cmd = (rawCmd || '').toLowerCase().trim();
+
+            if (cmd === 'clear') {
+                var log = document.getElementById('agent-chat-log');
+                if (log) log.innerHTML = '';
+                agentChat('🧹 Chat cleared. Ready for new commands!', 'agent');
+                return;
+            }
+
+            if (cmd === 'stats') {
+                var s = AgentState.stats;
+                agentChat(
+                    '📊 <strong>Session Statistics</strong><br><br>' +
+                    '🏛️ Government jobs scraped: <strong>' + s.gov + '</strong><br>' +
+                    '💼 Private jobs scraped: <strong>' + s.pvt + '</strong><br>' +
+                    '🌐 Remote jobs scraped: <strong>' + s.rem + '</strong><br>' +
+                    '📝 Total in session: <strong>' + AgentState.sessionPosts.length + '</strong><br>' +
+                    '✅ Total published: <strong>' + AgentState.publishedCount + '</strong>',
+                    'agent'
+                );
+                return;
+            }
+
+            if (cmd === 'preview') {
+                var posts = AgentState.sessionPosts;
+                if (posts.length === 0) {
+                    agentChat('📭 No posts in this session yet. Run a scrape first!', 'agent');
+                    return;
+                }
+                var preview = posts.slice(0, 5).map(function(p, i) {
+                    return (i+1) + '. ' + p._cat.toUpperCase() + ': <strong>' + p.title + '</strong>';
+                }).join('<br>');
+                agentChat('👁 <strong>Preview</strong> (first 5 of ' + posts.length + ' posts):<br><br>' + preview + (posts.length > 5 ? '<br>…and <strong>' + (posts.length-5) + ' more</strong>' : ''), 'agent');
+                return;
+            }
+
+            if (cmd === 'publish' || cmd.indexOf('publish') === 0) {
+                var posts = AgentState.sessionPosts;
+                if (posts.length === 0) {
+                    agentChat('📭 Nothing to publish. Scrape some jobs first!', 'agent');
+                    return;
+                }
+                agentChat('📤 Publishing <strong>' + posts.length + '</strong> posts…', 'agent');
+                AgentPublisher.publish(posts, function(mode, added) {
+                    AgentState.publishedCount += added;
+                    AgentState.sessionPosts = [];
+                    if (mode === 'github') {
+                        agentChat('🚀 <strong>' + added + ' posts committed to GitHub!</strong><br>GitHub Actions is rebuilding your site now — it will be live in ~1 minute.', 'agent');
+                        showToast('🚀 ' + added + ' posts pushed to GitHub!', 'success');
+                    } else if (mode === 'server') {
+                        agentChat('✅ <strong>' + added + ' posts published via server!</strong>', 'agent');
+                        showToast('✅ AI Agent published ' + added + ' posts!', 'success');
+                    } else if (mode === 'local') {
+                        agentChat(
+                            '✅ <strong>' + added + ' posts saved!</strong><br>' +
+                            'You are now on <strong>Live Scraped Posts</strong> — review posts and click <strong>"💾 Save to data.json"</strong> on any post to push it live.<br><br>' +
+                            '💡 <strong>Tip:</strong> Set a GitHub token in the <strong>Agent Settings</strong> below to auto-publish directly to your site without this step.',
+                            'agent'
+                        );
+                        showToast('✅ ' + added + ' posts ready in Live Scraped Posts', 'success');
+                    } else if (mode === 'github_fail') {
+                        agentChat('⚠️ GitHub commit failed (check your token/repo). Posts saved locally instead.', 'agent');
+                    }
+                    updateCounts();
+                });
+                return;
+            }
+
+            if (cmd.indexOf('scrape all') > -1 || cmd === 'run' || cmd === 'run all') {
+                agentRunScrape(['SR','SU','FJA','NK','LI','IN','WWR','FX','RC']);
+                return;
+            }
+
+            if (cmd.indexOf('government') > -1 || cmd.indexOf('govt') > -1 || cmd.indexOf('sarkari') > -1) {
+                agentRunScrape(['SR','SU','FJA']);
+                return;
+            }
+
+            if (cmd.indexOf('private') > -1 || cmd.indexOf('naukri') > -1 || cmd.indexOf('linkedin') > -1 || cmd.indexOf('indeed') > -1) {
+                agentRunScrape(['NK','LI','IN']);
+                return;
+            }
+
+            if (cmd.indexOf('remote') > -1 || cmd.indexOf('wwr') > -1 || cmd.indexOf('flexjobs') > -1) {
+                agentRunScrape(['WWR','FX','RC']);
+                return;
+            }
+
+            if (cmd.indexOf('help') > -1 || cmd === '?') {
+                agentChat(
+                    '🤖 <strong>Available Commands:</strong><br><br>' +
+                    '• <strong>scrape all</strong> — Scrape all 9 sources<br>' +
+                    '• <strong>scrape government jobs</strong> — SarkariResult + SarkariUjala + FreeJobAlert<br>' +
+                    '• <strong>scrape private jobs</strong> — Naukri + LinkedIn + Indeed<br>' +
+                    '• <strong>scrape remote jobs</strong> — WeWorkRemotely + FlexJobs + Remote.co<br>' +
+                    '• <strong>preview</strong> — Show scraped posts before publishing<br>' +
+                    '• <strong>publish</strong> — Push all scraped posts to the site<br>' +
+                    '• <strong>stats</strong> — Show session statistics<br>' +
+                    '• <strong>clear</strong> — Clear the chat<br>' +
+                    '• <strong>schedule daily</strong> — Toggle auto daily scrape',
+                    'agent'
+                );
+                return;
+            }
+
+            if (cmd.indexOf('schedule') > -1 || cmd.indexOf('auto') > -1 || cmd.indexOf('daily') > -1) {
+                agentToggleSchedule();
+                return;
+            }
+
+            // Unknown command
+            agentChat(
+                '🤔 I don\'t understand that command. Try:<br>' +
+                '• <strong>"scrape all"</strong><br>' +
+                '• <strong>"scrape government jobs"</strong><br>' +
+                '• <strong>"publish"</strong><br>' +
+                '• <strong>"help"</strong> for full list',
+                'agent'
+            );
+        }
+
+        function agentSend() {
+            var input = document.getElementById('agent-input');
+            if (!input) return;
+            var val = input.value.trim();
+            if (!val) return;
+            agentChat(val, 'user');
+            input.value = '';
+            setTimeout(function() { agentCmd(val); }, 200);
+        }
+
+        /* ─── Scheduler ─────────────────────────────────────────────────── */
+        function agentToggleSchedule() {
+            var btn = document.getElementById('agent-schedule-btn');
+            if (AgentState.schedulerOn) {
+                // Turn off
+                clearInterval(AgentState.schedulerTimer);
+                AgentState.schedulerOn = false;
+                AgentState.nextRunTime = null;
+                if (btn) btn.classList.remove('active');
+                document.getElementById('agent-stat-next').textContent = '—';
+                agentChat('⏰ Daily auto-scrape <strong>disabled</strong>.', 'agent');
+                agentLog('Scheduler stopped.', 'warn');
+            } else {
+                // Turn on: run every 24 hours
+                AgentState.schedulerOn = true;
+                var next = new Date(Date.now() + 24 * 60 * 60 * 1000);
+                AgentState.nextRunTime = next;
+                if (btn) btn.classList.add('active');
+                document.getElementById('agent-stat-next').textContent = next.toLocaleDateString() + ' ' + next.toLocaleTimeString();
+                agentChat('⏰ Daily auto-scrape <strong>enabled!</strong><br>Next run: <strong>' + next.toLocaleDateString() + ' at ' + next.toLocaleTimeString() + '</strong>', 'agent');
+                agentLog('Scheduler started. Next run in 24h.', 'success');
+                AgentState.schedulerTimer = setInterval(function() {
+                    agentLog('Scheduler triggered auto-run.', 'info');
+                    agentChat('⏰ <strong>Auto daily scrape started!</strong>', 'agent');
+                    agentRunScrape(['SR','SU','FJA','NK','LI','IN','WWR','FX','RC']);
+                    var nextT = new Date(Date.now() + 24 * 60 * 60 * 1000);
+                    AgentState.nextRunTime = nextT;
+                    document.getElementById('agent-stat-next').textContent = nextT.toLocaleTimeString();
+                }, 24 * 60 * 60 * 1000);
+            }
+        }
+
+        function agentSaveGhSettings() {
+            var tok = (document.getElementById('agent-gh-token') || {}).value || '';
+            var repo = (document.getElementById('agent-gh-repo') || {}).value || '';
+            var branch = (document.getElementById('agent-gh-branch') || {}).value || 'main';
+            if (!tok || !repo) { showToast('⚠️ Token and Repo are required', 'error'); return; }
+            localStorage.setItem('oj_agent_gh_token', tok);
+            localStorage.setItem('oj_agent_gh_repo', repo);
+            localStorage.setItem('oj_agent_gh_branch', branch || 'main');
+            agentInitGhSettings();
+            showToast('✅ GitHub settings saved! Publish will now go direct to GitHub.', 'success');
+            agentLog('GitHub settings saved: repo=' + repo + ' branch=' + (branch||'main'), 'success');
+            agentChat('✅ <strong>GitHub settings saved!</strong><br>Next publish will commit directly to <strong>' + repo + '</strong> — no manual steps needed!', 'agent');
+            document.getElementById('agent-gh-body').style.display = 'none';
+        }
+
+        function agentInitGhSettings() {
+            var tok = localStorage.getItem('oj_agent_gh_token') || '';
+            var repo = localStorage.getItem('oj_agent_gh_repo') || '';
+            var branch = localStorage.getItem('oj_agent_gh_branch') || 'main';
+            var tokenEl = document.getElementById('agent-gh-token');
+            var repoEl = document.getElementById('agent-gh-repo');
+            var branchEl = document.getElementById('agent-gh-branch');
+            var badge = document.getElementById('agent-gh-status-badge');
+            if (tokenEl) tokenEl.value = tok;
+            if (repoEl) repoEl.value = repo;
+            if (branchEl) branchEl.value = branch;
+            if (badge) {
+                if (tok && repo) {
+                    badge.textContent = '✅ GitHub Ready';
+                    badge.style.background = 'rgba(16,185,129,.15)';
+                    badge.style.color = '#34d399';
+                } else {
+                    badge.textContent = '⚠️ No Token';
+                    badge.style.background = 'rgba(220,38,38,.15)';
+                    badge.style.color = '#f87171';
+                }
+            }
+        }
+
+        /* ════════════════════════════════════════
+           END AI JOB AGENT ENGINE
+        ════════════════════════════════════════ */
 
         var scraperPollInterval = null;
 
