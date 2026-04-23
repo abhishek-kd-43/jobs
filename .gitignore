@@ -1,1 +1,30 @@
+# Dependencies
+__pycache__/
+*.pyc
+*.pyo
 .env
+venv/
+node_modules/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+server.log
+
+# Test/debug files
+test_*.html
+scratch_*.py
+
+# Local automation runtime
+.onlyjobs-automation/
