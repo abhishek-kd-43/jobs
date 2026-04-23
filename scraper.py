@@ -1127,7 +1127,7 @@ def scrape_sarkariresult(limit=None):
     res = empty_scrape_result()
     counts = {key: 0 for key in res}
     seen_urls = set()
-    home_limit = min(LISTING_PAGE_LIMIT, 8)
+    home_limit = min(LISTING_PAGE_LIMIT, 15)
     url = "https://www.sarkariresult.com/"
     print(f"\n📡 Scraping SarkariResult ({url})...")
     try:
@@ -1158,7 +1158,7 @@ def scrape_freejobalert(limit=None):
     res = empty_scrape_result()
     counts = {key: 0 for key in res}
     seen_urls = set()
-    home_limit = min(LISTING_PAGE_LIMIT, 8)
+    home_limit = min(LISTING_PAGE_LIMIT, 15)
     url = "https://www.freejobalert.com/"
     print(f"\n📡 Scraping FreeJobAlert ({url})...")
     try:
@@ -1200,7 +1200,7 @@ def scrape_sarkariexam(limit=None):
     res = empty_scrape_result()
     counts = {key: 0 for key in res}
     seen_urls = set()
-    home_limit = min(LISTING_PAGE_LIMIT, 8)
+    home_limit = min(LISTING_PAGE_LIMIT, 15)
     url = "https://www.sarkariexam.com/"
     print(f"\n📡 Scraping SarkariExam ({url})...")
     try:
@@ -1739,7 +1739,10 @@ def scrape_weworkremotely_jobs(res: dict, counts: dict, seen_urls: set):
         session.mount('https://', requests.adapters.HTTPAdapter(max_retries=3))
         response = session.get(url, headers=HEADERS, timeout=35)
         response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'xml')
+        try:
+            soup = BeautifulSoup(response.text, 'xml')
+        except Exception:
+            soup = BeautifulSoup(response.text, 'html.parser')
 
         for item in soup.find_all('item'):
             if counts['remote_jobs'] >= category_limit('remote_jobs'):
@@ -1881,7 +1884,7 @@ def main():
 
     started_ts = time.time()
     try:
-        all_data = {'status': 'success'}
+        all_data = {'status': 'success', 'scraped_at': utc_now_iso()}
         for category in CATEGORIES:
             all_data[category] = []
 
