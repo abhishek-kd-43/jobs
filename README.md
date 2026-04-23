@@ -1,57 +1,41 @@
-# onlyjob
+# 💼 OnlyJobs – India's Smartest Job Portal
 
-Static OnlyJobs site with a local Python scraper, a lightweight local server, and macOS daily scrape automation.
+OnlyJobs is a highly automated job board and aggregator that tracks government notifications, private sector openings, remote roles, results, and admit cards from 13+ reliable sources.
 
-## GitHub Notes
+### 🚀 [Live Demo](https://abhishek-kd-43.github.io/jobs/)
 
-- `data.json` is a normal tracked snapshot so the repo can be pushed to GitHub and hosted as a static site.
-- `scrape_status.json` is treated as a local runtime file and is ignored by Git.
-- The admin panel uses client-side demo authentication only. It is convenient for local editing, but it is not secure protection for a public deployment.
+---
 
-## GitHub Pages Daily Scrape
+## 🔥 Key Features
 
-This repo now includes a scheduled workflow at `.github/workflows/daily-scrape-pages.yml`.
+- **Automated Daily Scraping**: Scrapers run 3x daily (8:15 AM, 1:30 PM, and 8:15 PM IST) to ensure fresh data.
+- **Categorized Listings**: 
+  - **Government Jobs**: Latest notifications from Sarkari Result, FreeJobAlert, etc.
+  - **Private Sector**: Openings from top companies.
+  - **Remote Roles**: Global opportunities from platforms like WeWorkRemotely.
+- **Smart Tracking**: Integrated tracking for Admit Cards and Answer Keys.
+- **Modern UI**: Clean, responsive dashboard designed for speed and usability.
 
-- It runs the scraper every day at `02:45 UTC` which is `08:15 IST`.
-- It also runs again at `14:45 UTC` which is `20:15 IST`.
-- It also supports manual runs from the GitHub Actions tab with `workflow_dispatch`.
-- After scraping, it updates `data.json`, pushes that change to the repo, and deploys the static site to GitHub Pages.
+## 🛠️ Tech Stack
 
-For this workflow to publish the site, set the repository Pages source to `GitHub Actions` in GitHub Settings.
+- **Frontend**: Clean HTML5, CSS3, and modern JavaScript.
+- **Backend/Scraper**: Python 3 with `BeautifulSoup4` and `lxml`.
+- **Automation**: GitHub Actions for scheduled scraping and deployment.
+- **Hosting**: GitHub Pages.
 
-## Daily Scrape Automation
+## 🤖 How it Works
 
-This project includes macOS `launchd` automation for running the scraper every day.
+The system uses a Python-based scraper (`scraper.py`) that fetches data from multiple RSS feeds and HTML sources. The scraped data is stored in `data.json` and `scrape_status.json`, which are then used by the frontend to render the job listings dynamically.
 
-Files:
-- `automation/run_daily_scrape.sh`
-- `automation/install_daily_launch_agent.sh`
-- `automation/uninstall_daily_launch_agent.sh`
+1. **Scrape**: GitHub Actions triggers the Python script.
+2. **Process**: The script parses 13+ sources, deduplicates, and limits entries for performance.
+3. **Deploy**: Changes are committed to the repository, triggering a GitHub Pages redeploy.
 
-Install a daily run at 8:00 local time:
+## 📈 Current Stats
+- **Sources Scraped**: 13+
+- **Update Frequency**: 3x Daily
+- **Total active jobs**: 361+ (as of last scrape)
 
-```bash
-./automation/install_daily_launch_agent.sh
-```
+---
 
-Install at a custom time, for example `07:30`:
-
-```bash
-./automation/install_daily_launch_agent.sh 7 30
-```
-
-Run the job immediately after installing:
-
-```bash
-launchctl kickstart -k gui/$(id -u)/com.onlyjobs.daily-scrape
-```
-
-Logs are written to:
-- `~/.onlyjobs-automation/logs/daily_scrape.log`
-- `~/.onlyjobs-automation/logs/launchd.out.log`
-- `~/.onlyjobs-automation/logs/launchd.err.log`
-
-The scheduled runtime is stored in:
-- `~/.onlyjobs-automation/runtime`
-
-When the runtime folder exists, the local server automatically prefers the live runtime `data.json` and `scrape_status.json` files instead of the repo snapshot.
+Developed with ❤️ as a smart job dashboard.
