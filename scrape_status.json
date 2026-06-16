@@ -1,8 +1,8 @@
 {
   "status": "success",
-  "started_at": "2026-06-16T08:34:09+00:00",
-  "finished_at": "2026-06-16T08:42:42+00:00",
-  "duration_seconds": 512.83,
+  "started_at": "2026-06-16T13:00:28+00:00",
+  "finished_at": "2026-06-16T13:09:54+00:00",
+  "duration_seconds": 566.03,
   "counts": {
     "results": 70,
     "admit_cards": 70,
