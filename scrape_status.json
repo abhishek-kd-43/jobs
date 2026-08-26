@@ -1,13 +1,13 @@
 {
   "status": "success",
-  "started_at": "2026-08-26T08:52:07+00:00",
-  "finished_at": "2026-08-26T09:03:43+00:00",
-  "duration_seconds": 696.49,
+  "started_at": "2026-08-26T16:04:51+00:00",
+  "finished_at": "2026-08-26T16:13:14+00:00",
+  "duration_seconds": 502.14,
   "counts": {
     "results": 70,
     "admit_cards": 70,
-    "latest_jobs": 118,
-    "answer_keys": 63,
+    "latest_jobs": 117,
+    "answer_keys": 65,
     "private_jobs": 70,
     "remote_jobs": 80
   },
