@@ -1,12 +1,12 @@
 {
   "status": "success",
-  "started_at": "2026-11-06T09:54:02+00:00",
-  "finished_at": "2026-11-06T10:04:04+00:00",
-  "duration_seconds": 601.98,
+  "started_at": "2026-11-06T15:50:10+00:00",
+  "finished_at": "2026-11-06T16:00:32+00:00",
+  "duration_seconds": 621.63,
   "counts": {
     "results": 90,
     "admit_cards": 90,
-    "latest_jobs": 165,
+    "latest_jobs": 168,
     "answer_keys": 60,
     "private_jobs": 50,
     "remote_jobs": 80
